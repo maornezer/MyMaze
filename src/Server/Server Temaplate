@@ -1,0 +1,100 @@
+import java.io.IOException;
+import java.net.ServerSocket;
+import java.net.Socket;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
+/**
+ * Generic server class to handle multiple client requests.
+ */
+public class GenericServer {
+
+    private final int port; // The port on which the server listens.
+    private final int listeningInterval; // Interval to check for new connections.
+    private final IServerStrategy serverStrategy; // Strategy to handle client requests.
+    private volatile boolean stop; // Flag to control server operation.
+    private final ExecutorService threadPool; // Thread pool to manage client connections.
+
+    /**
+     * Constructor to initialize server properties.
+     *
+     * @param port              Port number for the server.
+     * @param listeningInterval Interval to listen for new connections.
+     * @param serverStrategy    Strategy to handle client requests.
+     */
+    public GenericServer(int port, int listeningInterval, IServerStrategy serverStrategy) {
+        this.port = port;
+        this.listeningInterval = listeningInterval;
+        this.serverStrategy = serverStrategy;
+        this.threadPool = Executors.newFixedThreadPool(10); // Create a thread pool for client handling.
+    }
+
+    /**
+     * Start the server in a new thread and handle client connections.
+     */
+    public void start() {
+        new Thread(this::runServer).start();
+    }
+
+    /**
+     * Main method to run the server, listen for client connections, and assign them to threads.
+     */
+    private void runServer() {
+        try (ServerSocket serverSocket = new ServerSocket(port)) {
+            serverSocket.setSoTimeout(listeningInterval);
+            System.out.println("Server started, waiting for clients...");
+
+            while (!stop) {
+                try {
+                    Socket clientSocket = serverSocket.accept();
+                    System.out.println("Client connected.");
+                    threadPool.submit(() -> handleClient(clientSocket));
+                } catch (IOException e) {
+                    if (stop) {
+                        System.out.println("Server is shutting down.");
+                    } else {
+                        System.out.println("Error accepting client connection: " + e.getMessage());
+                    }
+                }
+            }
+        } catch (IOException e) {
+            System.out.println("Could not start server on port " + port + ": " + e.getMessage());
+        } finally {
+            threadPool.shutdown();
+        }
+    }
+
+    /**
+     * Handle client connection using the provided server strategy.
+     *
+     * @param clientSocket Socket for the connected client.
+     */
+    private void handleClient(Socket clientSocket) {
+        try {
+            serverStrategy.handleClient(clientSocket.getInputStream(), clientSocket.getOutputStream());
+        } catch (IOException e) {
+            System.out.println("Error handling client: " + e.getMessage());
+        } finally {
+            try {
+                clientSocket.close();
+            } catch (IOException e) {
+                System.out.println("Error closing client socket: " + e.getMessage());
+            }
+        }
+    }
+
+    /**
+     * Stop the server and terminate all active connections.
+     */
+    public void stop() {
+        stop = true;
+        System.out.println("Server stopping...");
+    }
+}
+
+/**
+ * Interface defining the strategy for handling client requests.
+ */
+interface IServerStrategy {
+    void handleClient(InputStream inputStream, OutputStream outputStream) throws IOException;
+}
