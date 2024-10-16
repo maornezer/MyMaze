@@ -152,4 +152,9 @@ public class Maze
             }
         }
     }
+
+        public static int byteArrayToInt(byte[] byteArray, int start) {
+        // Combine 4 consecutive bytes into an integer using bitwise operations
+        return ((byteArray[start] & 0xFF) << 24) | ((byteArray[start + 1] & 0xFF) << 16) | ((byteArray[start + 2] & 0xFF) << 8) | (byteArray[start + 3] & 0xFF);
+    }
 }
