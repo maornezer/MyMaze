@@ -91,10 +91,3 @@ public class GenericServer {
         System.out.println("Server stopping...");
     }
 }
-
-/**
- * Interface defining the strategy for handling client requests.
- */
-interface IServerStrategy {
-    void handleClient(InputStream inputStream, OutputStream outputStream) throws IOException;
-}

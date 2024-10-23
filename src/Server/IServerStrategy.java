@@ -8,7 +8,7 @@ This is an interface class that explains the "contract" between the server and t
   That is, any class that implements this interface will have to implement specific functions to run any strategy on a server.
  */
 public interface IServerStrategy {
-    void handleClient(InputStream inFromClient, OutputStream outToClient);
+    void applyStrategy(InputStream inFromClient, OutputStream outToClient);
 }
 /*
 What is InputStream and OutputStream?

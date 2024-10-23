@@ -19,7 +19,7 @@ public class ServerStrategySolveSearchProblem implements IServerStrategy {
     private static Map<Integer, String> solutionsCache = new HashMap<>(); // Cache to store solutions using maze hash
 
     @Override
-    public void handleClient(InputStream inFromClient, OutputStream outToClient) {
+    public void applyStrategy(InputStream inFromClient, OutputStream outToClient) {
         try (ObjectInputStream fromClient = new ObjectInputStream(new SimpleDecompressorInputStream(inFromClient));
              ObjectOutputStream toClient = new ObjectOutputStream(outToClient)) {
 
