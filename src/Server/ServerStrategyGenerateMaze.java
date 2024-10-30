@@ -72,6 +72,7 @@ public class ServerStrategyGenerateMaze implements IServerStrategy {
     public void applyStrategy(InputStream inFromClient, OutputStream outToClient) {
         try (ObjectInputStream fromClient = new ObjectInputStream(inFromClient);
              ObjectOutputStream toClient = new ObjectOutputStream(outToClient);
+
              ByteArrayOutputStream byteOutputStream = new ByteArrayOutputStream();
              SimpleCompressorOutputStream compressor = new SimpleCompressorOutputStream(byteOutputStream)) {
 
@@ -81,6 +82,8 @@ public class ServerStrategyGenerateMaze implements IServerStrategy {
 
             // Generate the maze using MyMazeGenerator
             MyMazeGenerator mazeGenerator = new MyMazeGenerator();
+            //AMazeGenerator mazeGenerator = new AMazeGenerator();
+
             Maze maze = mazeGenerator.generate(mazeSizes[0], mazeSizes[1]);
             // Use MyMazeGenerator to create a new maze with the specified dimensions.
 

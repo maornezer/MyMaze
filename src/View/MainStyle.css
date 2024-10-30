@@ -1,0 +1,23 @@
+.button {
+    -fx-background-color: yellow;
+    -fx-font-family: "Press Start 2P", sans-serif; /* לדמות את הפונטים בסגנון Pacman */
+    -fx-text-fill: black;
+}
+
+.label {
+    -fx-font-size: 16px;
+    -fx-font-family: "Press Start 2P", sans-serif;
+    -fx-text-fill: #ffcc00; /* צבע צהוב בסגנון Pacman */
+}
+
+.root {
+    -fx-background-color: black; /* צבע רקע שחור */
+}
+.maze-wall {
+    -fx-fill: #0000FF; /* צבע כחול */
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 255, 0.75), 10, 0.5, 0, 0); /* הוספת אפקט זוהר */
+}
+
+.maze-path {
+    -fx-fill: black; /* צבע הרקע של המסלול */
+}

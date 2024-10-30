@@ -1,10 +1,11 @@
 package algorithms.search;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.ArrayList;
 
-public class Solution {
-    private List<AState> solutionPath;  // Holds the sequence of states that form the solution
+public class Solution implements Serializable {
+    private ArrayList<AState> solutionPath;  // Holds the sequence of states that form the solution
 
     // Constructor for an empty solution
     public Solution() {
@@ -12,12 +13,12 @@ public class Solution {
     }
 
     // Constructor for a solution with a given path
-    public Solution(List<AState> solutionPath) {
+    public Solution(ArrayList<AState> solutionPath) {
         this.solutionPath = solutionPath;
     }
 
     // Returns the solution path as a list of states
-    public List<AState> getSolutionPath() {
+    public ArrayList<AState> getSolutionPath() {
         return solutionPath;
     }
 

@@ -92,7 +92,7 @@ public class BestFirstSearch implements ISearchingAlgorithm {
 
     // Helper method to reconstruct the solution path from the goal to the start
     private Solution backtrackSolution(Map<AState, AState> parents, AState goalState) {
-        List<AState> path = new ArrayList<>();
+        ArrayList<AState> path = new ArrayList<>();
         AState currentState = goalState;
 
         // Trace back the path from the goal state to the start state

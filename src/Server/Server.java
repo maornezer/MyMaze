@@ -3,6 +3,7 @@ package Server;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.net.SocketTimeoutException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -13,11 +14,11 @@ Its purpose is to run the server in the background, manage client requests, and 
  */
 public class Server {
 
-    private int port; //the port number where the server will listen for connections from clients.
-    private int listeningIntervalMS; //how long the server will wait between checking for new connections.
+    private int port;                       //the port number where the server will listen for connections from clients.
+    private int listeningIntervalMS;        //how long the server will wait between checking for new connections.
     private IServerStrategy serverStrategy; //The strategy (defined by the IServerStrategy interface) to be used by the server when a client sends a request.
-    private volatile boolean stop; //a boolean variable that indicates whether the server should stop running.
-    private ExecutorService threadPool; // Thread pool to handle multiple clients
+    private volatile boolean stop = false;          //boolean variable that indicates whether the server should stop running.
+    private ExecutorService threadPool;        // Thread pool to handle multiple clients
     //volatile boolean stop:
     //The volatile marking indicates that the value of the variable can be changed at any moment by different processes (threads),
     // therefore every time it is accessed, it must be read directly from the main memory (RAM) and not use a copy stored in the processor's cache (cache).
@@ -61,16 +62,16 @@ public class Server {
                         //Once a client connects, the server submits a new task to the thread pool.
                         //The task (() -> handleClient(clientSocket)) is a lambda expression that calls the handleClient() method with the connected clientSocket.
                         //This allows multiple clients to be handled concurrently.
-                    } catch (IOException e) {
-                        if (stop) {
-                            System.out.println("Server is shutting down.");
-                        } else {
-                            System.out.println("Error accepting client connection.");
+                    } catch (SocketTimeoutException e) {
+                            stop();
                         }
                     }
-                }
                 threadPool.shutdown();
+                serverSocket.close();
+                System.out.println("Server is shutting down.");
             } catch (IOException e) {
+                e.printStackTrace();
+                stop();
                 System.out.println("Could not start server on port " + port);
             }
             //After the server stops (when stop is true), the thread pool is shut down.
