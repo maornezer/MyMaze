@@ -61,9 +61,18 @@ public class MazeDisplayer extends Canvas {
     public void drawMaze(int [][] maze)
     {
         this.maze = maze;
+        this.col_player = 0 ;
+        this.row_player = 0 ;
         draw();
+
     }
 
+//    private void drawBorder() {
+//        GraphicsContext gc = this.getGraphicsContext2D();
+//        gc.setStroke(Color.PINK); // צבע המסגרת
+//        gc.setLineWidth(10); // עובי המסגרת
+//        gc.strokeRect(0, 0, this.getWidth(), this.getHeight()); // ציור המסגרת מסביב למבוך
+//    }
     public void draw()
     {
         if( maze!=null)
@@ -113,6 +122,9 @@ public class MazeDisplayer extends Canvas {
             }
             graphicsContext.drawImage(playerImage,w_player,h_player,cellWidth,cellHeight);
 
+            graphicsContext.setStroke(Color.PINK); // צבע המסגרת
+            graphicsContext.setLineWidth(10); // עובי המסגרת
+            graphicsContext.strokeRect(0, 0, this.getWidth(), this.getHeight()); // ציור המסגרת מסביב למבוך
         }
     }
 }

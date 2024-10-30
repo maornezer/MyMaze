@@ -12,6 +12,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 
 import java.net.URL;
+import java.sql.SQLOutput;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.ResourceBundle;
@@ -40,6 +41,9 @@ public class View implements Initializable,Observer {
 
     public void setViewModel(MyViewModel viewModel) {
         this.viewModel = viewModel;
+        // Bind the view's properties to the ViewModel's properties
+        lbl_player_row.textProperty().bind(viewModel.playerRowProperty().asString());
+        lbl_player_column.textProperty().bind(viewModel.playerColProperty().asString());
     }
 
 
@@ -65,7 +69,13 @@ public class View implements Initializable,Observer {
     {
         int rows = Integer.valueOf(textField_mazeRows.getText());
         int cols = Integer.valueOf(textField_mazeColumns.getText());
+
         viewModel.generateMaze(rows,cols);
+
+        viewModel.update(viewModel,"maze generated");
+        //viewModel.notifyObservers("maze generated");
+
+
 
 
     }
@@ -97,46 +107,91 @@ public class View implements Initializable,Observer {
     }
 
 
+//    @Override
+//    public void update(Observable o, Object arg) {
+//        if(o instanceof MyViewModel)
+//        {
+//            if(maze == null)//generateMaze
+//            {
+//                this.maze = viewModel.getMaze();
+//                drawMaze();
+//            }
+//            else {
+//                int[][] maze = viewModel.getMaze();
+//
+//                if (maze == this.maze)//Not generateMaze
+//                {
+//                    int rowChar = mazeDisplayer.getRow_player();
+//                    int colChar = mazeDisplayer.getCol_player();
+//                    int rowFromViewModel = viewModel.getRowChar();
+//                    int colFromViewModel = viewModel.getColChar();
+//
+//                    if(rowFromViewModel == rowChar && colFromViewModel == colChar)//Solve Maze
+//                    {
+//                        viewModel.getSolution();
+//                        showAlert("Solving Maze ... ");
+//                    }
+//                    else//Update location
+//                    {
+//                        set_update_player_position_row(rowFromViewModel + "");
+//                        set_update_player_position_col(colFromViewModel + "");
+//                        this.mazeDisplayer.set_player_position(rowFromViewModel,colFromViewModel);
+//                    }
+//
+//
+//                }
+//                else//GenerateMaze
+//                {
+//                    this.maze = maze;
+//                    drawMaze();
+//                }
+//            }
+//        }
+//    }
+
+
     @Override
     public void update(Observable o, Object arg) {
-        if(o instanceof MyViewModel)
-        {
-            if(maze == null)//generateMaze
-            {
-                this.maze = viewModel.getMaze();
-                drawMaze();
-            }
-            else {
-                int[][] maze = viewModel.getMaze();
-
-                if (maze == this.maze)//Not generateMaze
-                {
-                    int rowChar = mazeDisplayer.getRow_player();
-                    int colChar = mazeDisplayer.getCol_player();
-                    int rowFromViewModel = viewModel.getRowChar();
-                    int colFromViewModel = viewModel.getColChar();
-
-                    if(rowFromViewModel == rowChar && colFromViewModel == colChar)//Solve Maze
-                    {
-                        viewModel.getSolution();
-                        showAlert("Solving Maze ... ");
-                    }
-                    else//Update location
-                    {
-                        set_update_player_position_row(rowFromViewModel + "");
-                        set_update_player_position_col(colFromViewModel + "");
-                        this.mazeDisplayer.set_player_position(rowFromViewModel,colFromViewModel);
-                    }
-
-
-                }
-                else//GenerateMaze
-                {
-                    this.maze = maze;
-                    drawMaze();
-                }
-            }
+        if (arg == null) {
+            System.out.println("Received null argument in update");
+            return;
         }
+
+        try {
+            String change = (String) arg;
+
+            switch (change) {
+                case "maze generated" -> mazeGenerated();
+                case "move player" -> playerMoved();
+                case "maze solved" -> mazeSolved();
+                default -> System.out.println("Not implemented change: " + change);
+            }
+        } catch (ClassCastException e) {
+            System.out.println("Invalid argument type in update: " + arg);
+        }
+    }
+
+    private void mazeSolved() {
+    }
+
+    private void playerMoved() {
+        System.out.println("i am here View - player move");
+
+        setPlayerPosition(viewModel.getPlayerRow(), viewModel.getPlayerCol());
+//        int rowFromViewModel = viewModel.getRowChar();
+//        int colFromViewModel = viewModel.getColChar();
+//        set_update_player_position_row(rowFromViewModel + "");
+//        set_update_player_position_col(colFromViewModel + "");
+//        this.mazeDisplayer.set_player_position(rowFromViewModel,colFromViewModel);
+    }
+    public void setPlayerPosition(int row, int col){
+        mazeDisplayer.set_player_position(row, col);
+        set_update_player_position_row(row + "");
+        set_update_player_position_col(col+ "");
+    }
+    private void mazeGenerated() {
+        System.out.println(viewModel.getMaze().toString());
+        mazeDisplayer.drawMaze(viewModel.getMaze());
     }
 
     public void drawMaze()
