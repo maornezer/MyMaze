@@ -9,78 +9,49 @@ import java.util.Observable;
 import java.util.Observer;
 
 public class MyViewModel extends Observable implements Observer {
+
     private IntegerProperty playerRow = new SimpleIntegerProperty();
     private IntegerProperty playerCol = new SimpleIntegerProperty();
     private IModel model;
     private int[][] maze;
-    private int rowChar;
-    private int colChar;
-
 
     public MyViewModel(IModel model) {
         this.model = model;
         this.model.assignObserver(this);
         this.maze = null;
     }
-
     public int getPlayerRow() {
         return playerRow.get();
     }
-
     public int getPlayerCol() {
         return playerCol.get();
     }
-
     public int[][] getMaze() {
         return maze;
     }
 
-
-    public int getRowChar() {
-        return rowChar;
+    /**
+     * the binding between the row position of the player and the view
+     * @return
+     */
+    public IntegerProperty playerRowProperty() {
+        return playerRow;
+    }
+    /**
+     * the binding between the col position of the player and the view
+     * @return
+     */
+    public IntegerProperty playerColProperty() {
+        return playerCol;
+    }
+    public void setPlayerRow(int playerRow) {
+        this.playerRow.set(playerRow);
     }
 
-    public int getColChar() {
-        return colChar;
+    public void setPlayerCol(int playerCol) {
+        this.playerCol.set(playerCol);
     }
 
-    //    @Override
-//    public void update(Observable o, Object arg) {
-//        if(o instanceof IModel)
-//        {
-//            if(maze == null)//generateMaze
-//            {
-//                this.maze = model.getMaze();
-//            }
-//            else {
-//                int[][] maze = model.getMaze();
-//
-//                if (maze == this.maze)//Not generateMaze
-//                {
-//                    int rowChar = model.getRowChar();
-//                    int colChar = model.getColChar();
-//                    if(this.colChar == colChar && this.rowChar == rowChar)//Solve Maze
-//                    {
-//                        model.getSolution();
-//                    }
-//                    else//Update location
-//                    {
-//                        this.rowChar = rowChar;
-//                        this.colChar = colChar;
-//                    }
-//
-//
-//                }
-//                else//GenerateMaze
-//                {
-//                    this.maze = maze;
-//                }
-//            }
-//
-//            setChanged();
-//            notifyObservers();
-//        }
-//    }
     @Override
     public void update(Observable o, Object arg) {
         setChanged();
@@ -88,10 +59,13 @@ public class MyViewModel extends Observable implements Observer {
     }
 
     public void generateMaze(int row, int col) {
-
         this.maze = this.model.generateRandomMaze(row, col);
     }
-
+    /**
+     * the function get the key event that happened and change the key code to int and send it to the model,
+     * update the position of the player and notify the observers of the ViewModel class
+     * @param keyEvent
+     */
     public void moveCharacter(KeyEvent keyEvent) {
         int direction = -1;
 
@@ -109,36 +83,16 @@ public class MyViewModel extends Observable implements Observer {
                 direction = 4;
                 break;
         }
-        model.updateCharacterLocation2(direction);
+        model.updateCharacterLocation(direction);
         setPlayerRow(model.getRowChar());
         setPlayerCol(model.getColChar());
         setChanged();
-        System.out.println("i am here MyViewModel - moveChar ");
         notifyObservers("move player");
     }
-
-    public void setPlayerRow(int playerRow) {
-        this.playerRow.set(playerRow);
-    }
-
-    public void setPlayerCol(int playerCol) {
-        this.playerCol.set(playerCol);
-    }
-
     public void solveMaze(int[][] maze) {
         model.solveMaze(maze);
     }
-
     public void getSolution() {
         model.getSolution();
-    }
-
-    public IntegerProperty playerRowProperty() {
-        return playerRow;
-    }
-
-    public IntegerProperty playerColProperty() {
-        return playerCol;
-
     }
 }
