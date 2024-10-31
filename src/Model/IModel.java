@@ -3,16 +3,13 @@ package Model;
 import java.util.Observer;
 
 public interface IModel {
-    //public void generateRandomMaze(int row, int col);
-    public int[][] generateRandomMaze(int row, int col);
-
     public int[][] getMaze();
-    public void updateCharacterLocation(int direction);
-    public void updateCharacterLocation2(int direction);
-
     public int getRowChar();
     public int getColChar();
-    public void assignObserver(Observer o);
     public void solveMaze(int [][] maze);
     public void getSolution();
+    public void assignObserver(Observer o);
+    public void updateCharacterLocation(int direction);
+    public int[][] generateRandomMaze(int row, int col);
+
 }
