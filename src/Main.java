@@ -21,10 +21,10 @@ public class Main extends Application {
         primaryStage.setScene(scene);
         primaryStage.show();
 
-        // Set background music
-        AudioClip backgroundMusic = new AudioClip(Main.class.getResource("/pacman-theme.mp3").toString());
-        backgroundMusic.setCycleCount(AudioClip.INDEFINITE);
-        backgroundMusic.play();
+//        // Set background music
+//        AudioClip backgroundMusic = new AudioClip(Main.class.getResource("/pacman-theme.mp3").toString());
+//        backgroundMusic.setCycleCount(AudioClip.INDEFINITE);
+//        backgroundMusic.play();
 
         IModel model = new MyModel();
         MyViewModel viewModel = new MyViewModel(model);

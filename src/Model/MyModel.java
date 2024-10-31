@@ -68,10 +68,11 @@ public class MyModel extends Observable implements IModel {
                 if (colChar < maze[0].length - 1 && maze[rowChar][colChar + 1] != 1) {
                     colChar++;
                 }
-                if(rowChar == getRowChar()-1 && colChar == getColChar() -1){
-                    setChanged();
-                    notifyObservers("Goal State");
-                }
+                break;
+        }
+        if(rowChar == maze.length-1 && colChar == maze[0].length -1){
+            setChanged();
+            notifyObservers("Goal State");
         }
     }
     /**
@@ -82,14 +83,12 @@ public class MyModel extends Observable implements IModel {
     public void assignObserver(Observer o) {
         this.addObserver(o);
     }
-
-
-
-
     public int[][] generateRandomMaze(int row, int col) {
         MyMazeGenerator myMazeGenerator = new MyMazeGenerator();
         Maze maze1 = myMazeGenerator.generate(row, col);
         this.maze = maze1.getMaze();
+        this.rowChar = 0;
+        this.colChar = 0;
         setChanged();
         //notifyObservers("maze generated");
         return this.maze;

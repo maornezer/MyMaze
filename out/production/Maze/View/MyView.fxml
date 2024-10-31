@@ -1,10 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
 <?import View.MazeDisplayer?>
-<BorderPane onMouseClicked="#mouseClicked" stylesheets="@MainStyle.css" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.View">
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.media.MediaView?>
+
+<BorderPane onMouseClicked="#mouseClicked" stylesheets="@MainStyle.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.View">
     <left>
         <VBox prefHeight="200.0" prefWidth="178.0" spacing="5.0" BorderPane.alignment="CENTER">
             <children>
@@ -22,13 +34,13 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                     <Label text="Maze rows:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
-                    <Label text="Maze columns:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
-                    <TextField fx:id="textField_mazeRows" text="10" GridPane.columnIndex="1" GridPane.rowIndex="0" />
-                    <TextField fx:id="textField_mazeColumns" text="10" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                    <Label text="Maze cols:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                    <TextField fx:id="textField_mazeRows" text="15" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                    <TextField fx:id="textField_mazeColumns" text="15" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                     <Button onAction="#generateMaze" prefHeight="25.0" prefWidth="167.0" text="Generate Maze" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="2" />
                     <Button cancelButton="true" onAction="#solveMaze" prefHeight="25.0" prefWidth="167.0" text="Solve Maze" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="3" />
-                    <Label text="Player Row" GridPane.rowIndex="4" />
-                    <Label text="Player Column" GridPane.rowIndex="5" />
+                    <Label text="Player row:" GridPane.rowIndex="4" />
+                    <Label text="Player col:" GridPane.rowIndex="5" />
                     <Label fx:id="lbl_player_row" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                     <Label fx:id="lbl_player_column" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                 </GridPane>
@@ -48,24 +60,24 @@
     <top>
         <VBox BorderPane.alignment="CENTER">
             <children>
-                <MenuBar>
-                    <menus>
-                        <Menu mnemonicParsing="false" text="File">
-                            <items>
-                                <MenuItem mnemonicParsing="false" text="Close" />
-                            </items>
-                        </Menu>
-                        <Menu mnemonicParsing="false" text="Edit">
-                            <items>
-                                <MenuItem mnemonicParsing="false" text="Delete" />
-                            </items>
-                        </Menu>
-                        <Menu mnemonicParsing="false" text="Help">
-                            <items>
-                                <MenuItem mnemonicParsing="false" text="About" />
-                            </items>
-                        </Menu>
-                    </menus>
+                <MenuBar VBox.vgrow="NEVER">
+                    <Menu mnemonicParsing="false" text="File">
+                        <items>
+                            <MenuItem mnemonicParsing="false" onAction="#generateNewMaze" text="New" />
+                            <MenuItem mnemonicParsing="false" text="Save" />
+                            <MenuItem mnemonicParsing="false" text="Quit" />
+                        </items>
+                    </Menu>
+                    <Menu mnemonicParsing="false" text="Help">
+                        <items>
+                            <MenuItem mnemonicParsing="false" onAction="#Help" text="Help" />
+                        </items>
+                    </Menu>
+                    <Menu mnemonicParsing="false" text="About">
+                        <items>
+                            <MenuItem mnemonicParsing="false" onAction="#AboutTheApp" text="About MazeApp" />
+                        </items>
+                    </Menu>
                 </MenuBar>
             </children>
         </VBox>
@@ -73,10 +85,11 @@
     <center>
         <Pane BorderPane.alignment="CENTER">
             <children>
-                <MazeDisplayer fx:id="mazeDisplayer" height="400.0" imageFileNamePlayer="./resources/Pacman2.png" imageFileNameWall="./resources/Wall2.png" onKeyPressed="#keyPressed" width="400.0" />
+                <MazeDisplayer fx:id="mazeDisplayer" layoutX="50.0" layoutY="50.0" height="500.0" imageFileNameDot="./resources/dot.png" imageFileNameGhost="./resources/ghost.png" imageFileNamePlayer="./resources/Pacman2.png" imageFileNameWall="./resources/Wall2.png" onKeyPressed="#keyPressed" width="400.0" />
+                <MediaView fx:id="mediaView" fitHeight="600" fitWidth="800" layoutX="0" layoutY="150" preserveRatio="true" />
             </children>
             <padding>
-                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                <Insets bottom="5.0" left="5.0" right="5.0" top="20.0"/>
             </padding>
         </Pane>
     </center>

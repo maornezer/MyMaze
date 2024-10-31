@@ -23,3 +23,10 @@
     -fx-fill: black; /* צבע הרקע של המסלול */
 }
 
+.maze-border {
+    -fx-border-color: #FFCC00; /* צבע מסגרת צהוב */
+    -fx-border-width: 5px; /* עובי המסגרת */
+    -fx-border-style: solid; /* סגנון מסגרת */
+    -fx-border-radius: 5px; /* פינות מעוגלות למסגרת */
+    -fx-effect: dropshadow(gaussian, rgba(255, 204, 0, 0.75), 15, 0.5, 0, 0); /* הוספת אפקט זוהר למסגרת */
+}
