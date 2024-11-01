@@ -1,7 +1,17 @@
 .button {
     -fx-background-color: yellow;
-    -fx-font-family: "Press Start 2P", sans-serif; /* לדמות את הפונטים בסגנון Pacman */
+    -fx-font-family: "Press Start 2P", sans-serif;
+    -fx-font-size: 16px;
     -fx-text-fill: black;
+}
+.combo-box {
+    -fx-background-color: Pink;
+    -fx-font-size: 16px;
+    -fx-font-family: "Press Start 2P", sans-serif;
+    -fx-text-fill: black;
+    -fx-border-color: #ffffff;
+    -fx-border-width: 2px;
+    /*-fx-effect: dropshadow(gaussian, rgba(255, 255, 0, 0.75), 10, 0.5, 0, 0); /* Glow effect for buttons */
 }
 
 .label {

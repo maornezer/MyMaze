@@ -1,12 +1,14 @@
 package View;
 
 import ViewModel.MyViewModel;
+import algorithms.mazeGenerators.Maze;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
@@ -15,6 +17,7 @@ import javafx.scene.layout.Region;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
+import algorithms.search.Solution;
 
 import java.io.File;
 import java.net.URL;
@@ -42,10 +45,21 @@ public class View implements Initializable,Observer {
     StringProperty update_player_position_col = new SimpleStringProperty();
     private int [][] maze;
 
+    @FXML
+    public ComboBox <String> myComboBox; // for the solve maze
+    @FXML
+    String selectedValueSearching; //the selected solving strategy
+    private Solution solution;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         lbl_player_row.textProperty().bind(update_player_position_row);
         lbl_player_column.textProperty().bind(update_player_position_col);
+
+        myComboBox.getItems().addAll("Best First Search", "Depth First Search", "Breadth First Search");
+        myComboBox.setOnAction(event -> {
+            this.selectedValueSearching = myComboBox.getSelectionModel().getSelectedItem();
+        });
     }
 
     public void setViewModel(MyViewModel viewModel) {
@@ -179,16 +193,7 @@ public class View implements Initializable,Observer {
         mazeDisplayer.drawMaze(maze);
     }
 
-    private void mazeSolved() {
-        //mazeDisplayer.drawSolution(this.searchable,this.solution);
 
-    }
-    /**
-     * solve the maze when click on the solve maze button in the app and update the view model
-     */
-    public void solveMaze() {
-        viewModel.solveMaze(this.maze);
-    }
 
     /**
      * menu function that present to the client an alert with the data of the application
@@ -245,9 +250,29 @@ public class View implements Initializable,Observer {
         // Stop any playing video first
         stopWinAnimation();
         //this.selectedValueSearchable = "MyMaze";
-        //this.selectedValueSearching = "Depth First Search";
+        this.selectedValueSearching = "Depth First Search";
         generateMaze();
     }
+
+    private void mazeSolved() {
+        mazeDisplayer.drawSolution(maze,this.solution);
+    }
+    /**
+     * solve the maze when click on the solve maze button in the app and update the view model
+     */
+    public void solveMaze() {
+        Maze tempMaze = new Maze(this.maze.length,this.maze[0].length);
+        for (int i=0; i < maze.length;i++) {
+            for (int j=0; j < maze[0].length;j++) {
+                tempMaze.setCell(i,j,this.maze[i][j]);
+            }
+        }
+        this.solution = viewModel.solveMaze(tempMaze);
+        viewModel.update(viewModel,"maze solved");
+    }
+
+
+
 }
 
 

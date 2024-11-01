@@ -1,5 +1,8 @@
 package View;
 
+import algorithms.search.AState;
+import algorithms.search.MazeState;
+import algorithms.search.Solution;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.scene.canvas.Canvas;
@@ -9,6 +12,7 @@ import javafx.scene.paint.Color;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 
 public class MazeDisplayer extends Canvas {
 
@@ -21,12 +25,16 @@ public class MazeDisplayer extends Canvas {
     StringProperty imageFileNameDot = new SimpleStringProperty();
     StringProperty imageFileNameSolve = new SimpleStringProperty();
     StringProperty imageFileNameGhost = new SimpleStringProperty();
+    StringProperty imageFileNameSolvePath = new SimpleStringProperty();
 
     public String getImageFileNameGhost() {
         return imageFileNameGhost.get();
     }
     public String getImageFileNameSolve() {
         return imageFileNameSolve.get();
+    }
+    public String getImageFileNameSolvePath() {
+        return imageFileNameSolvePath.get();
     }
 
     public void setImageFileNameDot(String imageFileNameDot) {
@@ -35,6 +43,9 @@ public class MazeDisplayer extends Canvas {
 
     public void setImageFileNameSolve(String imageFileNameSolve) {
         this.imageFileNameSolve.set(imageFileNameSolve);
+    }
+    public void setImageFileNameSolvePath(String imageFileNameSolve) {
+        this.imageFileNameSolvePath.set(imageFileNameSolve);
     }
 
     public void setImageFileNameGhost(String imageFileNameGhost) {
@@ -150,41 +161,40 @@ public class MazeDisplayer extends Canvas {
             graphicsContext.drawImage(ghost, (col - 1) * cellWidth, (row - 1) * cellHeight, cellWidth, cellHeight);
 
             graphicsContext.setStroke(Color.SNOW); // צבע המסגרת
-            graphicsContext.setLineWidth(5); // עובי המסגרת
+            graphicsContext.setLineWidth(4); // עובי המסגרת
             graphicsContext.strokeRect(0, 0, this.getWidth(), this.getHeight()); // ציור המסגרת מסביב למבוך
         }
     }
 
+    public void drawSolution(int [][] maze, Solution solution) {
+        drawMaze(maze);
+        double canvasHeight = getHeight();
+        double canvasWidth = getWidth();
+        int row = maze.length;
+        int col = maze[0].length;
+        double cellHeight = canvasHeight / row;
+        double cellWidth = canvasWidth / col;
+        GraphicsContext graphicsContext = getGraphicsContext2D();
+        //graphicsContext.clearRect(0, 0, canvasWidth, canvasHeight);
+        ArrayList<AState> solpath =  solution.getSolutionPath();
+        Image solutionPathImae = null;
+        try {
+            solutionPathImae = new Image(new FileInputStream(getImageFileNameSolvePath()));
+        } catch (FileNotFoundException e) {
+            System.out.println("There is no Image for solving");
+        }
 
-//    public void drawSolution(ISearchable searchable, Solution solution) {
-//        drawMaze(searchable);
-//        double canvasHeight = getHeight();
-//        double canvasWidth = getWidth();
-//        int row = maze.length;
-//        int col = maze[0].length;
-//        double cellHeight = canvasHeight / row;
-//        double cellWidth = canvasWidth / col;
-//        GraphicsContext graphicsContext = getGraphicsContext2D();
-////        graphicsContext.clearRect(0, 0, canvasWidth, canvasHeight);
-//        ArrayList<AState> solpath =  solution.getSolutionPath();
-//        Image solutionPathImae = null;
-//        try {
-//            solutionPathImae = new Image(new FileInputStream(getImageFileNameSolution()));
-//        } catch (FileNotFoundException e) {
-//            System.out.println("There is no Image for solving");
-//        }
-//
-//        for(int i=0; i<solpath.size(); i++){
-//            int r = ((MazeState) solpath.get(i)).getR();
-//            int c = ((MazeState) solpath.get(i)).getC();
-//            if((r==this.searchable.getInitState().getR() && c==this.searchable.getInitState().getC() )||
-//                    (r==this.searchable.getGoalState().getR() && c==this.searchable.getGoalState().getC())){
-//                continue;
-//            }
-//            double x = c*cellWidth;
-//            double y = r*cellHeight;
-//            graphicsContext.drawImage(solutionPathImae, x, y, cellWidth, cellHeight);
-//        }
-//    }
+        for(int i=0; i<solpath.size(); i++){
+            int r = ((MazeState) solpath.get(i)).getRow();
+            int c = ((MazeState) solpath.get(i)).getCol();
+            if((r==0 && c==0)|| (r==maze.length-1 && c==maze[0].length -1)){
+                continue;
+            }
+
+            double x = c*cellWidth;
+            double y = r*cellHeight;
+            graphicsContext.drawImage(solutionPathImae, x, y, cellWidth, cellHeight);
+        }
+    }
 
 }

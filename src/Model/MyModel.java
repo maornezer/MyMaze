@@ -2,17 +2,18 @@ package Model;
 
 import algorithms.mazeGenerators.Maze;
 import algorithms.mazeGenerators.MyMazeGenerator;
+import algorithms.search.Solution;
 
 import java.util.Observable;
 import java.util.Observer;
 
 public class MyModel extends Observable implements IModel {
 
-    //private boolean[][] points;
 
     private int [][]maze;
     private int rowChar;
     private int colChar;
+    private Solution solution;
 
     public MyModel() {
         maze = null;
@@ -28,10 +29,7 @@ public class MyModel extends Observable implements IModel {
         return colChar;
     }
 
-    @Override
-    public void getSolution() {
-        //return this.solution;
-    }
+
 
     public int[][] getMaze() {
         return maze;
@@ -90,7 +88,6 @@ public class MyModel extends Observable implements IModel {
         this.rowChar = 0;
         this.colChar = 0;
         setChanged();
-        //notifyObservers("maze generated");
         return this.maze;
     }
 
@@ -99,10 +96,15 @@ public class MyModel extends Observable implements IModel {
      * @param
      */
     @Override
-    public void solveMaze(int[][] maze) {
-        //Solving maze
-        setChanged();
-        notifyObservers("maze solved");
+    public Solution solveMaze(Maze maze) {
+
+        MyModelServerClient myModelServerClient= new MyModelServerClient();
+        myModelServerClient.ServerSolvingMaze(maze);
+        return myModelServerClient.solution;
+    }
+    @Override
+    public Solution getSolution() {
+        return this.solution;
     }
 
 
