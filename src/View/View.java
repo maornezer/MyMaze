@@ -1,5 +1,4 @@
 package View;
-
 import ViewModel.MyViewModel;
 import algorithms.mazeGenerators.Maze;
 import javafx.beans.property.SimpleStringProperty;
@@ -20,7 +19,6 @@ import javafx.scene.media.MediaView;
 import algorithms.search.Solution;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-
 import java.io.File;
 import java.net.URL;
 import java.util.Observable;
@@ -109,7 +107,6 @@ public class View implements Initializable,Observer {
             viewModel.moveCharacter(keyEvent);
         }
         keyEvent.consume();
-
     }
     /**
      * the listener of the mouse clicked on to get the focus on the maze to move
@@ -185,9 +182,7 @@ public class View implements Initializable,Observer {
         setPlayerPosition(0,0);
         viewModel.setPlayerCol(0);
         viewModel.setPlayerRow(0);
-
     }
-
 
     /**
      * custom alert function to make sure that the message fits into it
@@ -226,7 +221,6 @@ public class View implements Initializable,Observer {
     public void generateNewMaze(ActionEvent actionEvent) {
         // Stop any playing video first
         stopWinAnimation();
-        //this.selectedValueSearchable = "MyMaze";
         this.selectedValueSearching = "Depth First Search";
         generateMaze();
     }
@@ -259,7 +253,7 @@ public class View implements Initializable,Observer {
         Label label = new Label();
         label.setText(message);
         label.setWrapText(true);
-        label.setStyle("-fx-text-fill: #ffffff; -fx-font-size: 24px;"); // הוסף את גודל הגופן
+        label.setStyle("-fx-text-fill: #ffffff; -fx-font-size: 24px;");
 
         Button closeButton = new Button("Close");
         closeButton.setOnAction(e -> window.close());

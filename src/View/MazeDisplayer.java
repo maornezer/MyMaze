@@ -97,8 +97,7 @@ public class MazeDisplayer extends Canvas {
      * the function that draw the walls player and the pacman icon and the end of the maze
      */
     public void draw() {
-        if( maze!=null)
-        {
+        if( maze!=null) {
             double canvasHeight = getHeight();
             double canvasWidth = getWidth();
             int row = maze.length;
@@ -119,22 +118,18 @@ public class MazeDisplayer extends Canvas {
             } catch (FileNotFoundException e) {
                 System.out.println("There is no file....");
             }
-            for(int i=0;i<row;i++)
-            {
-                for(int j=0;j<col;j++)
-                {
+            for(int i=0;i<row;i++) {
+                for(int j=0;j<col;j++) {
                     h = i * cellHeight;
                     w = j * cellWidth;
-                    if(maze[i][j] == 1) // Wall
-                    {
+                    // Wall
+                    if(maze[i][j] == 1) {
                         if (wallImage == null){
                             graphicsContext.fillRect(w,h,cellWidth,cellHeight);
                         }else{
                             graphicsContext.drawImage(wallImage,w,h,cellWidth,cellHeight);
                         }
-                    }
-                    else
-                    {
+                    } else {
                         if (dot == null){
                             graphicsContext.fillRect(w,h,cellWidth,cellHeight);
                         }else{
@@ -173,7 +168,6 @@ public class MazeDisplayer extends Canvas {
         double cellHeight = canvasHeight / row;
         double cellWidth = canvasWidth / col;
         GraphicsContext graphicsContext = getGraphicsContext2D();
-        //graphicsContext.clearRect(0, 0, canvasWidth, canvasHeight);
         ArrayList<AState> solpath =  solution.getSolutionPath();
         Image solutionPathImae = null;
         try {
@@ -188,11 +182,9 @@ public class MazeDisplayer extends Canvas {
             if((r==0 && c==0)|| (r==maze.length-1 && c==maze[0].length -1)){
                 continue;
             }
-
             double x = c*cellWidth;
             double y = r*cellHeight;
             graphicsContext.drawImage(solutionPathImae, x, y, cellWidth, cellHeight);
         }
     }
-
 }
