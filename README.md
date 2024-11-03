@@ -1,4 +1,5 @@
 # README: Maze Generation and Solver Project
+![Pacman Maze GUI](resources/app.png)
 # Overview
 This project is a comprehensive Java-based application that generates, displays, compresses, and solves mazes using various algorithms. The design draws inspiration from classic arcade aesthetics, such as Pac-Man, and features engaging graphics and interactive functionality.
 
