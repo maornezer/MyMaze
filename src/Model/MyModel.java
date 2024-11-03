@@ -88,7 +88,6 @@ public class MyModel extends Observable implements IModel {
         setChanged();
         return this.maze;
     }
-
     /**
      * solve the maze and update it
      * @param
