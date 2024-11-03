@@ -20,7 +20,6 @@ public class Main extends Application {
         Scene scene = new Scene(root, 700, 800);
         primaryStage.setScene(scene);
         primaryStage.show();
-
         // Set background music
         AudioClip backgroundMusic = new AudioClip(Main.class.getResource("/pacman-theme.mp3").toString());
         backgroundMusic.setCycleCount(AudioClip.INDEFINITE);
@@ -31,7 +30,6 @@ public class Main extends Application {
         View view = fxmlLoader.getController();
         view.setViewModel(viewModel);
         viewModel.addObserver(view);
-
     }
 
     public static void main(String[] args) {
