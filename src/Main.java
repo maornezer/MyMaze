@@ -16,7 +16,7 @@ public class Main extends Application {
 
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("View/MyView.fxml"));
         Parent root = fxmlLoader.load();
-        primaryStage.setTitle("Hello World");
+        primaryStage.setTitle("Pacman Maze");
         Scene scene = new Scene(root, 700, 800);
         primaryStage.setScene(scene);
         primaryStage.show();
