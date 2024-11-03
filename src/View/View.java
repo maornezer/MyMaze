@@ -211,6 +211,15 @@ public class View implements Initializable,Observer {
     public void Help(ActionEvent actionEvent) {
         showCustomAlert("לפנייך אפליקציה שיוצרת ופותרת מבוכים, המטרה הינה להגיע עם הדמות של מריו לדמות הנסיכה ולפתור את המבוך. ליצירת מבוך חדש לחץ על כתפתור הGENERATE, לפתירה של מבוך קיים לחץ על כפתור הSOLVE. בכדי לזוז השתמש בחצים של המקלדת");
     }
+    public void BFS(ActionEvent actionEvent) {
+        showCustomAlert("BFS");
+    }
+    public void DFS(ActionEvent actionEvent) {
+        showCustomAlert("DFS");
+    }
+    public void Best(ActionEvent actionEvent) {
+        showCustomAlert("Best");
+    }
 
     /**
      * custom alert function to make sure that the message fits into it

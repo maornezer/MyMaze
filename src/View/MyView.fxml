@@ -46,7 +46,7 @@
                     <Label text="Player col:" GridPane.rowIndex="6" />
                     <Label fx:id="lbl_player_row" GridPane.columnIndex="1" GridPane.rowIndex="6" />
                     <Label fx:id="lbl_player_column" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-                    <ComboBox fx:id="myComboBox" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="168.0" promptText="choose solving strategy" GridPane.rowIndex="3" />
+                    <ComboBox fx:id="myComboBox" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="168.0" promptText="Solving Strategy" GridPane.rowIndex="3" />
                 </GridPane>
                 <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="398.0" prefWidth="675.0" VBox.vgrow="ALWAYS" />
             </children>
@@ -81,6 +81,16 @@
                     <Menu mnemonicParsing="false" text="About">
                         <items>
                             <MenuItem mnemonicParsing="false" onAction="#AboutTheApp" text="About MazeApp" />
+                        </items>
+                    </Menu>
+                    <Menu mnemonicParsing="false" text="Best First Search">
+                        <items>
+                            <MenuItem mnemonicParsing="false" onAction="#BFS" text="BFS"/>
+                        </items>
+                    </Menu>
+                    <Menu mnemonicParsing="false" text="Depth Fist Search">
+                        <items>
+                            <MenuItem mnemonicParsing="false" onAction="#DFS" text="DFS"/>
                         </items>
                     </Menu>
                 </MenuBar>
