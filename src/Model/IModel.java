@@ -9,8 +9,7 @@ public interface IModel {
     public int[][] getMaze();
     public int getRowChar();
     public int getColChar();
-    public Solution solveMaze(Maze maze);
-    //public void solveMaze(int [][] maze);
+    public Solution solveMaze(Maze maze,String str);
     public Solution getSolution();
     public void assignObserver(Observer o);
     public void updateCharacterLocation(int direction);

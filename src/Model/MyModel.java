@@ -1,5 +1,6 @@
 package Model;
 
+import Server.Configurations;
 import algorithms.mazeGenerators.Maze;
 import algorithms.mazeGenerators.MyMazeGenerator;
 import algorithms.search.Solution;
@@ -8,7 +9,6 @@ import java.util.Observable;
 import java.util.Observer;
 
 public class MyModel extends Observable implements IModel {
-
 
     private int [][]maze;
     private int rowChar;
@@ -28,8 +28,6 @@ public class MyModel extends Observable implements IModel {
     public int getColChar() {
         return colChar;
     }
-
-
 
     public int[][] getMaze() {
         return maze;
@@ -96,8 +94,12 @@ public class MyModel extends Observable implements IModel {
      * @param
      */
     @Override
-    public Solution solveMaze(Maze maze) {
-
+    public Solution solveMaze(Maze maze,String selectedSearching)
+    {
+        //update the configuration file with the selected value from the client
+        Configurations con = Configurations.getInstance();
+        con.setProp("mazeSearchingAlgorithm", selectedSearching);
+        //Solving maze
         MyModelServerClient myModelServerClient= new MyModelServerClient();
         myModelServerClient.ServerSolvingMaze(maze);
         return myModelServerClient.solution;
@@ -106,6 +108,4 @@ public class MyModel extends Observable implements IModel {
     public Solution getSolution() {
         return this.solution;
     }
-
-
 }

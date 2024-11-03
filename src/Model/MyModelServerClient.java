@@ -1,23 +1,16 @@
 package Model;
-
 import Client.*;
-import IO.SimpleDecompressorInputStream;
 import Server.Server;
 import algorithms.mazeGenerators.Maze;
-import algorithms.search.ISearchable;
-import algorithms.search.SearchableMaze;
 import algorithms.search.Solution;
 import Server.*;
 import java.io.*;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 
-
 public class MyModelServerClient {
-
     public Maze mymaze;
     public Solution solution;
-
     /**
      * the function that solve the maze that it's getting, using Server Client to choose in runtime the strategy
      * @param maze
@@ -46,12 +39,12 @@ public class MyModelServerClient {
                         ObjectOutputStream toServer = new ObjectOutputStream(outToServer);
                         ObjectInputStream fromServer = new ObjectInputStream(inFromServer);
                         toServer.flush();
-                        toServer.writeObject(maze); //send maze to server?????????
+                        toServer.writeObject(maze);
                         toServer.flush();
                         //read generated maze (compressed with SimpleCompressor) from server
                         Solution mazeSolution = (Solution) fromServer.readObject();
                         solution = mazeSolution;
-                        System.out.println("CommunicateWithServer_SolveSearchProblem: " + solution);
+                        //System.out.println("CommunicateWithServer_SolveSearchProblem: " + solution);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -111,7 +104,4 @@ public class MyModelServerClient {
 //            e.printStackTrace();
 //        }
 //    }
-
-
-
 }

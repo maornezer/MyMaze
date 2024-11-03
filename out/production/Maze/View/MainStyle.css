@@ -1,42 +1,139 @@
-.button {
-    -fx-background-color: yellow;
-    -fx-font-family: "Press Start 2P", sans-serif;
-    -fx-font-size: 14px;
-    -fx-text-fill: black;
+
+/*.menu-bar {*/
+/*    -fx-background-color: transparent;*/
+/*}*/
+
+/*.menu {*/
+/*    -fx-text-fill: black; !* שינוי צבע הטקסט לשחור *!*/
+/*    -fx-font-family: "Press Start 2P", sans-serif;*/
+/*    -fx-font-size: 14px;*/
+/*}*/
+
+
+/*.button {*/
+/*    -fx-background-color: yellow;*/
+/*    -fx-font-family: "Press Start 2P", sans-serif;*/
+/*    -fx-font-size: 16px; !* שינוי גודל הפונט ל-16 פיקסלים *!*/
+/*    -fx-text-fill: black;*/
+/*    -fx-padding: 5px 15px; !* שיפור הפרופורציות כדי שהכפתור יהיה נעים יותר לעין *!*/
+/*    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 5, 0.5, 0, 0); !* הוספת אפקט זוהר שחור עדין כדי להבליט את הכפתור *!*/
+/*    -fx-border-color: #000000; !* מסגרת שחורה דקה יותר *!*/
+/*    -fx-border-width: 1px; !* עובי המסגרת דק יותר *!*/
+/*    -fx-border-radius: 10px; !* פינות מעט מעוגלות לכפתור *!*/
+/*    -fx-background-radius: 10px; !* לוודא שגם הרקע מעוגל *!*/
+/*}*/
+/*.combo-box {*/
+/*    -fx-background-color: yellow;*/
+/*    -fx-font-size: 16px; !* שינוי גודל הפונט ל-16 פיקסלים כדי להתאים לכפתורים *!*/
+/*    -fx-font-family: "Press Start 2P", sans-serif;*/
+/*    -fx-text-fill: black;*/
+/*    -fx-border-color: #000000; !* שינוי צבע המסגרת לשחור כדי להתאים לכפתורים *!*/
+/*    -fx-border-width: 1px; !* עובי המסגרת דק יותר *!*/
+/*    -fx-border-radius: 10px; !* פינות מעט מעוגלות *!*/
+/*    -fx-background-radius: 10px; !* עיגול הרקע *!*/
+/*    -fx-padding: 5px 15px; !* התאמת הריווח הפנימי כדי להיראות בהרמוניה עם הכפתורים *!*/
+/*    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 5, 0.5, 0, 0); !* הוספת אפקט זוהר שחור עדין *!*/
+/*}*/
+
+/*.label {*/
+/*    -fx-font-size: 16px;*/
+/*    -fx-font-family: "Press Start 2P", sans-serif;*/
+/*    -fx-text-fill: #ffcc00; !* צבע צהוב בסגנון Pacman *!*/
+/*}*/
+
+/*.root {*/
+/*    -fx-background-color: black; !* צבע רקע שחור *!*/
+/*}*/
+
+/*.maze-wall {*/
+/*    -fx-fill: #0000FF; !* צבע כחול *!*/
+/*    -fx-effect: dropshadow(gaussian, rgba(0, 0, 255, 0.75), 10, 0.5, 0, 0); !* הוספת אפקט זוהר *!*/
+/*}*/
+
+/*.maze-path {*/
+/*    -fx-fill: black; !* צבע הרקע של המסלול *!*/
+/*}*/
+
+/*.maze-border {*/
+/*    -fx-border-color: #FFCC00; !* צבע מסגרת צהוב *!*/
+/*    -fx-border-width: 5px; !* עובי המסגרת *!*/
+/*    -fx-border-style: solid; !* סגנון מסגרת *!*/
+/*    -fx-border-radius: 5px; !* פינות מעוגלות למסגרת *!*/
+/*    -fx-effect: dropshadow(gaussian, rgba(255, 204, 0, 0.75), 15, 0.5, 0, 0); !* הוספת אפקט זוהר למסגרת *!*/
+/*}*/
+.menu-bar {
+    -fx-background-color: transparent; /* Make the menu bar background transparent */
 }
+
+.menu {
+    -fx-text-fill: black; /* Set the menu text color to black */
+    -fx-font-family: "Press Start 2P", sans-serif; /* Use custom font style */
+    -fx-font-size: 14px; /* Set the font size to 14 pixels */
+}
+
+.button {
+    -fx-background-color: yellow; /* Set button background color to yellow */
+    -fx-font-family: "Press Start 2P", sans-serif; /* Use custom font style */
+    -fx-font-size: 16px; /* Increase the font size to 16 pixels for better visibility */
+    -fx-text-fill: black; /* Set text color to black */
+    -fx-padding: 5px 15px; /* Adjust padding to improve proportions for better visual appearance */
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 5, 0.5, 0, 0); /* Add a soft black shadow effect to highlight the button */
+    -fx-border-color: #000000; /* Set the border color to black */
+    -fx-border-width: 1px; /* Set the border width to a thin line */
+    -fx-border-radius: 10px; /* Add slightly rounded corners to the button */
+    -fx-background-radius: 10px; /* Ensure the background is also rounded */
+}
+
 .combo-box {
-    -fx-background-color: yellow;
-    -fx-font-size: 14px;
-    -fx-font-family: "Press Start 2P", sans-serif;
-    -fx-text-fill: black;
-    -fx-border-color: #ffffff;
-    /*-fx-border-width: 6px;*/
-    -fx-effect: dropshadow(gaussian, rgba(255, 255, 0, 0.75), 10, 0.5, 0, 0); /* Glow effect for buttons */
+    -fx-background-color: yellow; /* Set ComboBox background color to yellow */
+    -fx-font-size: 16px; /* Increase the font size to 16 pixels */
+    -fx-font-family: "Press Start 2P", sans-serif; /* Use custom font style */
+    -fx-text-fill: black; /* Set text color to black */
+    -fx-border-color: #000000; /* Set border color to black */
+    -fx-border-width: 1px; /* Set border width */
+    -fx-border-radius: 10px; /* Add rounded corners to the ComboBox */
+    -fx-background-radius: 10px; /* Ensure the background is also rounded */
+    -fx-padding: 5px 15px; /* Adjust padding for better proportions */
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 5, 0.5, 0, 0); /* Add a soft shadow effect */
+}
+
+/* Items inside the ComboBox dropdown list */
+.combo-box .list-cell {
+    -fx-background-color: #f0e68c; /* Set background color to a lighter yellow for better contrast */
+    -fx-text-fill: black; /* Set text color to black */
+    -fx-font-family: "Press Start 2P", sans-serif; /* Use custom font style */
+    -fx-font-size: 14px; /* Set font size to 14 pixels */
+}
+
+/* Style for the selected item in the ComboBox */
+.combo-box .list-cell:selected {
+    -fx-background-color: #ffd700; /* Set background color for selected item to a lighter yellow */
+    -fx-text-fill: black; /* Set text color to black */
 }
 
 .label {
-    -fx-font-size: 16px;
-    -fx-font-family: "Press Start 2P", sans-serif;
-    -fx-text-fill: #ffcc00; /* צבע צהוב בסגנון Pacman */
+    -fx-font-size: 16px; /* Set label font size to 16 pixels */
+    -fx-font-family: "Press Start 2P", sans-serif; /* Use custom font style */
+    -fx-text-fill: #ffcc00; /* Set label text color to a Pacman-style yellow */
 }
 
 .root {
-    -fx-background-color: black; /* צבע רקע שחור */
+    -fx-background-color: black; /* Set the root background color to black */
 }
 
 .maze-wall {
-    -fx-fill: #0000FF; /* צבע כחול */
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 255, 0.75), 10, 0.5, 0, 0); /* הוספת אפקט זוהר */
+    -fx-fill: #0000FF; /* Set wall color to blue */
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 255, 0.75), 10, 0.5, 0, 0); /* Add a blue glow effect to the wall */
 }
 
 .maze-path {
-    -fx-fill: black; /* צבע הרקע של המסלול */
+    -fx-fill: black; /* Set path color to black */
 }
 
 .maze-border {
-    -fx-border-color: #FFCC00; /* צבע מסגרת צהוב */
-    -fx-border-width: 5px; /* עובי המסגרת */
-    -fx-border-style: solid; /* סגנון מסגרת */
-    -fx-border-radius: 5px; /* פינות מעוגלות למסגרת */
-    -fx-effect: dropshadow(gaussian, rgba(255, 204, 0, 0.75), 15, 0.5, 0, 0); /* הוספת אפקט זוהר למסגרת */
+    -fx-border-color: #FFCC00; /* Set border color to yellow */
+    -fx-border-width: 5px; /* Set border width */
+    -fx-border-style: solid; /* Set border style to solid */
+    -fx-border-radius: 5px; /* Add rounded corners to the border */
+    -fx-effect: dropshadow(gaussian, rgba(255, 204, 0, 0.75), 15, 0.5, 0, 0); /* Add a yellow glow effect to the border */
 }

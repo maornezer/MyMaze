@@ -51,18 +51,16 @@ public class Configurations {
     //set new value of properties to the file
     public void setProp(String key, String value) {
         try{
-            //C:\Users\USER\Desktop\maor maze\Maze\resources
-            OutputStream out = new FileOutputStream("C:\\Users\\User\\Desktop\\Maze_Project\\MAZE\\resources\\config.properties");
+            OutputStream out = new FileOutputStream("C:\\Users\\USER\\Desktop\\maor maze\\Maze\\resources\\config.properties");
             //set the new property
             prop.setProperty(key,value);
             //save it to the file
             prop.store(out,"");
         } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException("File Not Found " +e);
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException("IO Exception " +e);
         }
     }
-
 
 }

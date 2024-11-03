@@ -90,15 +90,13 @@ public class MyViewModel extends Observable implements Observer {
         setChanged();
         notifyObservers("move player");
     }
-//    public void solveMaze(int[][] maze) {
-//        model.solveMaze(maze);
-//    }
+
     public void getSolution() {
         model.getSolution();
     }
 
-    public Solution solveMaze(Maze maze) {
-        return model.solveMaze(maze);
+    public Solution solveMaze(Maze maze,String selectedSearchingValue) {
+        return model.solveMaze(maze,selectedSearchingValue);
     }
 
 }

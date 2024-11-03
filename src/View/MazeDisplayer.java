@@ -1,5 +1,4 @@
 package View;
-
 import algorithms.search.AState;
 import algorithms.search.MazeState;
 import algorithms.search.Solution;
@@ -9,7 +8,6 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
-
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -160,9 +158,9 @@ public class MazeDisplayer extends Canvas {
             graphicsContext.drawImage(playerImage,w_player,h_player,cellWidth,cellHeight);
             graphicsContext.drawImage(ghost, (col - 1) * cellWidth, (row - 1) * cellHeight, cellWidth, cellHeight);
 
-            graphicsContext.setStroke(Color.SNOW); // צבע המסגרת
-            graphicsContext.setLineWidth(4); // עובי המסגרת
-            graphicsContext.strokeRect(0, 0, this.getWidth(), this.getHeight()); // ציור המסגרת מסביב למבוך
+//            graphicsContext.setStroke(Color.SNOW);
+//            graphicsContext.setLineWidth(4);
+//            graphicsContext.strokeRect(0, 0, this.getWidth(), this.getHeight());
         }
     }
 

@@ -1,9 +1,6 @@
 package Server;
-
-import IO.SimpleDecompressorInputStream;
 import algorithms.mazeGenerators.Maze;
 import algorithms.search.*;
-
 import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
@@ -17,6 +14,9 @@ public class ServerStrategySolveSearchProblem implements IServerStrategy {
 
     private static final String TEMP_DIRECTORY_PATH = System.getProperty("java.io.tmpdir"); // Temp directory for storing solutions
     private static Map<Integer, String> solutionsCache = new HashMap<>(); // Cache to store solutions using maze hash
+
+    private Object filetolook = new Object();
+
 
     @Override
     public void applyStrategy(InputStream inFromClient, OutputStream outToClient) {
@@ -41,7 +41,25 @@ public class ServerStrategySolveSearchProblem implements IServerStrategy {
             }
 
             // If no solution exists, solve the maze
-            ISearchingAlgorithm searcher = new BreadthFirstSearch(); // We use BFS as the search algorithm
+            Configurations con = Configurations.getInstance();
+            String solutionType = con.getProp("mazeSearchingAlgorithm");
+            ISearchingAlgorithm searcher;
+            //choose the Solving type using the configuration file
+            if(solutionType.equals("BreadthFirstSearch"))
+            {
+                System.out.println("class ServerStrategySolveSearchProblem: Breadth first search");
+                searcher = new BreadthFirstSearch();
+            }
+            else if(solutionType.equals("BestFirstSearch"))
+            {
+                System.out.println("class ServerStrategySolveSearchProblem: Best first search");
+                searcher= new BestFirstSearch();
+            }
+            else{
+                System.out.println("class ServerStrategySolveSearchProblem: Depth first search");
+                searcher = new DepthFirstSearch();
+            }
+
             SearchableMaze searchableMaze = new SearchableMaze(maze);
             Solution solution = searcher.solve(searchableMaze); // Solve the maze
 

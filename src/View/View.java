@@ -7,29 +7,29 @@ import javafx.beans.property.StringProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.geometry.Pos;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Region;
+import javafx.scene.layout.VBox;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
 import algorithms.search.Solution;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
 import java.io.File;
 import java.net.URL;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.ResourceBundle;
-
 public class View implements Initializable,Observer {
 
     public MediaView mediaView;
     private MediaPlayer mediaPlayer;
-
     private MyViewModel viewModel;
     @FXML
     public TextField textField_mazeRows;
@@ -144,7 +144,6 @@ public class View implements Initializable,Observer {
         }
     }
 
-
     /**
      * the function that play the GIF of mario after the client solve the maze
      */
@@ -189,37 +188,6 @@ public class View implements Initializable,Observer {
 
     }
 
-    public void drawMaze() {
-        mazeDisplayer.drawMaze(maze);
-    }
-
-
-
-    /**
-     * menu function that present to the client an alert with the data of the application
-     * @param actionEvent
-     */
-    @FXML
-    public void AboutTheApp(ActionEvent actionEvent) {
-        showCustomAlert("לפניך אפליקציה ליצירת מבוכים ופתרונם מבוססת אלגוריתמים שונים. יש שימוש באסטרטגיית Strategy כדי לתמוך בבחירה בזמן ריצה של אלגוריתמים שונים.");
-    }
-
-    /**
-     * the function shows alert to the client with explanation of how the app is working and how to use it
-     * @param actionEvent
-     */
-    public void Help(ActionEvent actionEvent) {
-        showCustomAlert("לפנייך אפליקציה שיוצרת ופותרת מבוכים, המטרה הינה להגיע עם הדמות של מריו לדמות הנסיכה ולפתור את המבוך. ליצירת מבוך חדש לחץ על כתפתור הGENERATE, לפתירה של מבוך קיים לחץ על כפתור הSOLVE. בכדי לזוז השתמש בחצים של המקלדת");
-    }
-    public void BFS(ActionEvent actionEvent) {
-        showCustomAlert("BFS");
-    }
-    public void DFS(ActionEvent actionEvent) {
-        showCustomAlert("DFS");
-    }
-    public void Best(ActionEvent actionEvent) {
-        showCustomAlert("Best");
-    }
 
     /**
      * custom alert function to make sure that the message fits into it
@@ -262,7 +230,6 @@ public class View implements Initializable,Observer {
         this.selectedValueSearching = "Depth First Search";
         generateMaze();
     }
-
     private void mazeSolved() {
         mazeDisplayer.drawSolution(maze,this.solution);
     }
@@ -276,79 +243,71 @@ public class View implements Initializable,Observer {
                 tempMaze.setCell(i,j,this.maze[i][j]);
             }
         }
-        this.solution = viewModel.solveMaze(tempMaze);
+        this.solution = viewModel.solveMaze(tempMaze,this.selectedValueSearching);
         viewModel.update(viewModel,"maze solved");
     }
 
 
-
-}
-
-
-/*
-public class View implements Initializable, Observer {
-
     @FXML
-    private MazeDisplayer mazeDisplayer;
-    @FXML
-    private TextField rowsTextField;
-    @FXML
-    private TextField columnsTextField;
-    @FXML
-    private Button generateMazeButton;
-    @FXML
-    private Button solveMazeButton;
-    @FXML
-    private Label lblPlayerRow;
-    @FXML
-    private Label lblPlayerColumn;
+    public void showAlgorithmDetails(String title, String message) {
+        Stage window = new Stage();
+        window.initModality(Modality.APPLICATION_MODAL);
+        window.setTitle(title);
+        window.setMinWidth(400);
+        window.setMinHeight(400);
 
-    private MyViewModel viewModel;
+        Label label = new Label();
+        label.setText(message);
+        label.setWrapText(true);
+        label.setStyle("-fx-text-fill: #ffffff; -fx-font-size: 24px;"); // הוסף את גודל הגופן
 
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        viewModel = new MyViewModel(new MyModel());
+        Button closeButton = new Button("Close");
+        closeButton.setOnAction(e -> window.close());
+        closeButton.setStyle("-fx-text-fill: #000000; -fx-background-color: #ffcc00;");
 
-        // Binding UI elements to ViewModel
-        generateMazeButton.setOnAction(event -> {
-            int rows = Integer.parseInt(rowsTextField.getText());
-            int columns = Integer.parseInt(columnsTextField.getText());
-            viewModel.generateMaze(rows, columns);
-        });
+        VBox layout = new VBox(10);
+        layout.getChildren().addAll(label, closeButton);
+        layout.setAlignment(Pos.CENTER);
+        layout.setStyle("-fx-padding: 20; -fx-background-color: #333333; -fx-border-color: #ffcc00; -fx-border-width: 2;");
 
-        solveMazeButton.setOnAction(event -> viewModel.solveMaze());
-
-        // Binding MazeDisplayer to ViewModel
-        viewModel.getMazeProperty().addListener((observable, oldValue, newValue) -> {
-            mazeDisplayer.drawMaze(newValue);
-            mazeDisplayer.drawBorder();
-        });
-
-        viewModel.getSolutionProperty().addListener((observable, oldValue, newValue) -> {
-            mazeDisplayer.drawSolution(newValue);
-        });
-
-        // Player position binding
-        lblPlayerRow.textProperty().bind(viewModel.getPlayerRowProperty().asString());
-        lblPlayerColumn.textProperty().bind(viewModel.getPlayerColumnProperty().asString());
+        Scene scene = new Scene(layout);
+        window.setScene(scene);
+        window.showAndWait();
     }
 
-    @Override
-    public void update(Observable o, Object arg) {
-        if (o == viewModel) {
-            // Handle updates from the ViewModel if needed
-        }
+    @FXML
+    public void AboutTheApp(ActionEvent actionEvent) {
+        showAlgorithmDetails("About MazeApp",
+                "This application allows you to create and solve mazes using various algorithms. " +
+                        "The Strategy design pattern is implemented to support selecting different algorithms at runtime.");
     }
 
-    public void keyPressed(KeyEvent keyEvent) {
-        viewModel.moveCharacter(keyEvent);
-        keyEvent.consume();
+    @FXML
+    public void Help(ActionEvent actionEvent) {
+        showAlgorithmDetails("Help",
+                "This application allows you to create and solve mazes. The objective is to move Pacman to reach the Ghost and solve the maze. " +
+                        "To generate a new maze, click the 'Generate Maze' button. To solve an existing maze, click the 'Solve Maze' button. Use the arrow keys on the keyboard to move the character.");
     }
 
-    public void mouseClicked(MouseEvent mouseEvent) {
-        mazeDisplayer.requestFocus();
+    @FXML
+    public void BFS(ActionEvent actionEvent) {
+        showAlgorithmDetails("Breadth-First Search (BFS)",
+                "Breadth-First Search (BFS) is an algorithm used to explore or search through all possible paths in a maze or network. " +
+                        "It starts from the starting point and explores all possible paths step by step, layer by layer, making sure every path is explored evenly before moving further.");
+    }
+
+    @FXML
+    public void DFS(ActionEvent actionEvent) {
+        showAlgorithmDetails("Depth-First Search (DFS)",
+                "Depth-First Search (DFS) is an algorithm used to explore or search through a maze or network by going as far as possible in one direction before turning back. " +
+                        "It keeps moving forward until it hits a dead end, and then it goes back to the last point where it can try a new direction.");
+    }
+
+    @FXML
+    public void BestFirstSearch(ActionEvent actionEvent) {
+        showAlgorithmDetails("Best-First Search",
+                "Best-First Search is a type of search that tries to find the goal as quickly as possible by choosing the most promising path first. " +
+                        "It uses a smart guess (heuristic) to decide which direction to explore next, often making it faster in finding the solution compared to other methods.");
     }
 
 }
-
- */
