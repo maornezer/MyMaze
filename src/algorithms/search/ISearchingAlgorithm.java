@@ -1,5 +1,4 @@
 package algorithms.search;
-
 public interface ISearchingAlgorithm
 {
     // Returns the name of the algorithm

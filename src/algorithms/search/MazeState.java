@@ -1,5 +1,4 @@
 package algorithms.search;
-
 import java.util.Objects;
 
 public class MazeState extends AState

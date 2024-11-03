@@ -1,7 +1,5 @@
 package algorithms.search;
-
 import java.io.Serializable;
-import java.util.List;
 import java.util.ArrayList;
 
 public class Solution implements Serializable {
@@ -32,6 +30,6 @@ public class Solution implements Serializable {
         for (AState state : solutionPath) {
             sb.append(state).append(" -> ");
         }
-        return sb.substring(0, sb.length() - 4);  // Remove the last " -> "
+        return sb.substring(0, sb.length() - 4);
     }
 }

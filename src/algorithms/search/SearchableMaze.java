@@ -1,5 +1,4 @@
 package algorithms.search;
-
 import java.util.ArrayList;
 import java.util.List;
 import algorithms.mazeGenerators.Maze;

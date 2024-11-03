@@ -10,6 +10,7 @@ Stack: instead of a queue, we use a stack (Deque) that allows for "Last In, Firs
 Tracking the states we have visited: We use the fence group to keep track of the states we have visited, which prevents repetition of previous states and optimizes the search.
 Retrieving the path: As in BFS, we keep the parents of each state in the mouth so that we can restore the path from the initial state to when a solution is found.
  */
+
 public class DepthFirstSearch implements ISearchingAlgorithm {
     private int numberOfNodesEvaluated;  // Tracks how many nodes were evaluated
 

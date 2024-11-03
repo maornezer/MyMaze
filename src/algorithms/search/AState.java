@@ -1,5 +1,4 @@
 package algorithms.search;
-
 import java.io.Serializable;
 
 public abstract class AState implements Serializable
