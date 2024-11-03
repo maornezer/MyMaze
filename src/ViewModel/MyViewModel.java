@@ -5,7 +5,6 @@ import Model.IModel;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.scene.input.KeyEvent;
-
 import java.util.Observable;
 import java.util.Observer;
 
@@ -89,10 +88,6 @@ public class MyViewModel extends Observable implements Observer {
         setPlayerCol(model.getColChar());
         setChanged();
         notifyObservers("move player");
-    }
-
-    public void getSolution() {
-        model.getSolution();
     }
 
     public Solution solveMaze(Maze maze,String selectedSearchingValue) {
