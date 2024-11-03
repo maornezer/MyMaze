@@ -35,8 +35,8 @@ public class Server {
         this.port = port;
         this.listeningIntervalMS = listeningIntervalMS;
         this.serverStrategy = serverStrategy;
-        this.threadPool = Executors.newFixedThreadPool(10); // Default thread pool size
-        //// Create a cached thread pool to handle multiple clients concurrently
+        this.threadPool = Executors.newFixedThreadPool(10); // Create a cached thread pool to handle multiple clients concurrently
+
     }
     /**
      * Starts the server and listens for client connections.

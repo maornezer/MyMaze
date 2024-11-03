@@ -20,7 +20,7 @@ public class ServerStrategySolveSearchProblem implements IServerStrategy {
 
     @Override
     public void applyStrategy(InputStream inFromClient, OutputStream outToClient) {
-        try (ObjectInputStream fromClient = new ObjectInputStream(inFromClient);//ew SimpleDecompressorInputStream(inFromClient));
+        try (ObjectInputStream fromClient = new ObjectInputStream(inFromClient);
              ObjectOutputStream toClient = new ObjectOutputStream(outToClient)) {
 
             // Read maze from client
