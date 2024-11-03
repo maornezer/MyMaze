@@ -1,4 +1,5 @@
 package algorithms.mazeGenerators;
+
 /**
  * EmptyMazeGenerator is a maze generator that creates an empty maze.
  * All cells in the maze are set to 0 (open path).

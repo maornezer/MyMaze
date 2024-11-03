@@ -2,7 +2,6 @@ package algorithms.mazeGenerators;
 
 public abstract class AMazeGenerator implements IMazeGenerator
 {
-    /// maor nezer
     /**
      * Measures the time taken to generate a maze with the specified number of rows and columns.
      * @param rows the number of rows in the maze

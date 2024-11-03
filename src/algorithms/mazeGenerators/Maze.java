@@ -1,10 +1,7 @@
 package algorithms.mazeGenerators;
-
-
 import java.io.Serializable;
 
-public class Maze implements Serializable
-{
+public class Maze implements Serializable {
 
     private int [][] maze;
     private Position startPosition;
@@ -16,7 +13,7 @@ public class Maze implements Serializable
      * setting the goalPosition of the Maze to be {mazeArr.length - 1, mazeArr[0].length - 1}
      */
     public Maze(int rows, int cols) {
-        // Input validation: Ensure rows and columns are positive
+    // Input validation: Ensure rows and columns are positive
         if (rows <= 1 || cols <= 1) {
             throw new IllegalArgumentException("Rows and columns must be greater than one.");
         }
@@ -35,6 +32,7 @@ public class Maze implements Serializable
         this.startPosition = new Position(0, 0);  // Top-left corner (0, 0)
         this.goalPosition = new Position(rows - 1, cols - 1);  // Bottom-right corner
     }
+
     // Set the value of a specific cell
     public void setCell(int row, int col, int value) {
         maze[row][col] = value;
@@ -44,9 +42,11 @@ public class Maze implements Serializable
     public int getCell(int row, int col) {
         return maze[row][col];
     }
-    public Position getStartPosition() {return startPosition;}
+    public Position getStartPosition() {
+        return startPosition;}
 
-    public Position getGoalPosition() {return goalPosition;}
+    public Position getGoalPosition() {
+        return goalPosition;}
 
     public void print() {
         for (int i = 0; i < maze.length; i++) {
@@ -154,7 +154,6 @@ public class Maze implements Serializable
             }
         }
     }
-
         public static int byteArrayToInt(byte[] byteArray, int start) {
         // Combine 4 consecutive bytes into an integer using bitwise operations
         return ((byteArray[start] & 0xFF) << 24) | ((byteArray[start + 1] & 0xFF) << 16) | ((byteArray[start + 2] & 0xFF) << 8) | (byteArray[start + 3] & 0xFF);
